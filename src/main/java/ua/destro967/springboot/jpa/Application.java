@@ -20,7 +20,7 @@ public class Application {
         return repository.findAll().toString();
     }
 
-    @Bean(initMethod = "migrate")
+  /*  @Bean(initMethod = "migrate")
     public Flyway flyway() {
         Flyway fly = new Flyway();
         fly.setDataSource("jdbc:postgresql:books_test","test","test");
@@ -28,5 +28,5 @@ public class Application {
 
         fly.migrate();
         return fly;
-    }
+    }*/
 }
