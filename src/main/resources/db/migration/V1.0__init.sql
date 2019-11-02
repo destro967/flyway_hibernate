@@ -1,5 +1,5 @@
-CREATE TABLE if not exists book (
+CREATE TABLE if not exists customer (
     id serial  primary key,
-    description varchar(255) default null,
-    title varchar(255) default null
+    firstname varchar(255) default null,
+    lastname varchar(255) default null
 );
