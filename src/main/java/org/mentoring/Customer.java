@@ -1,3 +1,5 @@
+package org.mentoring;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
