@@ -1,10 +1,9 @@
 package org.mentoring;
 
+
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +15,7 @@ public class CustomerController {
     @Autowired
     CustomerRepository repository;
 
-    @GetMapping("/bulkcreate")
+    @GetMapping("/")
     public String bulkcreate() {
         repository.save(new Customer("Rajesh", "Bhojwani"));
 
@@ -27,31 +26,31 @@ public class CustomerController {
         return "Customers are created";
     }
 
-    @GetMapping("/findall")
+    @RequestMapping(value = "/findall", method = RequestMethod.GET)
     public List<Customer> findAll() {
         List<Customer> customers = repository.findAll();
         List<Customer> customerUI = new ArrayList<Customer>();
 
         for (Customer customer : customers) {
-            customerUI.add(new Customer(customer.getFirstName(), customer.getLastName()));
+            customerUI.add(new Customer(customer.getId(),customer.getFirstName(), customer.getLastName()));
         }
 
         return customerUI;
     }
 
-    @RequestMapping("/search/{id}")
-    public String search(@PathVariable long id) {
-        String customer = "";
-        customer = repository.findById(id).toString();
-        return customer;
+    @RequestMapping(value = "/search/{id}", method = RequestMethod.GET)
+    public JSONObject search(@PathVariable long id) {
+        String customer="" ;
+        customer = repository.findById(id).get().toString();
+        return new JSONObject(customer);
     }
 
-    @RequestMapping("/searchbyfirstname/{firstname}")
+    @RequestMapping(value = "/searchbyfirstname/{firstname}", method = RequestMethod.GET)
     public List<Customer> fetchDataByFirstName(@PathVariable String firstname) {
         List<Customer> customers = repository.findByFirstName(firstname);
         List<Customer> customerUI = new ArrayList<Customer>();
         for (Customer customer : customers) {
-            customerUI.add(new Customer(customer.getFirstName(), customer.getLastName()));
+            customerUI.add(new Customer(customer.getId(),customer.getFirstName(), customer.getLastName()));
         }
         return customerUI;
     }

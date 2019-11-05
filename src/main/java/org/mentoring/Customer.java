@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Table(name="customer")
 public class Customer implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "firstname")
@@ -16,9 +16,28 @@ public class Customer implements Serializable {
     @Column(name="lastname")
     private String lastName;
 
+    public Customer() {
+
+    }
+
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Customer(long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "{ " +
+                "\"id\":" + id +
+                ", \"firstName\":\"" + firstName + "\"" +
+                ", \"lastName\":\"" + lastName + "\""+
+                "}";
     }
 
     public long getId() {
@@ -44,5 +63,6 @@ public class Customer implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
 
 }
